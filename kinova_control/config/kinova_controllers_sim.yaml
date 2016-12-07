@@ -1,9 +1,14 @@
 # Settings for ros_control control loop
-hardware_control_loop:
+generic_hw_control_loop:
    loop_hz: 100
+   cycle_time_error_threshold: 0.1 # TODO: tune this better
+
+moveit_sim_hw_interface:
+   joint_model_group: arm
+   joint_model_group_pose: home
 
 # Settings for ros_control hardware interface
-hw_interface:
+hardware_interface:
    joints:
        - jaco2_joint_1
        - jaco2_joint_2
