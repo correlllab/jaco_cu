@@ -1,4 +1,3 @@
 <launch>
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find jaco_description)/urdf/jaco.urdf.xacro'" />
+  <param name="robot_description" textfile="$(find jaco_description)/urdf/jaco.urdf" />
 </launch>
-
