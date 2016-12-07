@@ -1,0 +1,132 @@
+# Settings for ros_control control loop
+hardware_control_loop:
+   loop_hz: 100
+
+# Settings for ros_control hardware interface
+hw_interface:
+   joints:
+      - jaco2_joint_1
+      - jaco2_joint_2
+      - jaco2_joint_3
+      - jaco2_joint_4
+      - jaco2_joint_5
+      - jaco2_joint_6
+      - jaco2_joint_finger_1
+      - jaco2_joint_finger_2
+      - jaco2_joint_finger_3
+
+# Publish all joint states ----------------------------------
+joint_state_controller:
+   type:         joint_state_controller/JointStateController
+   publish_rate: 50
+
+# Joint Trajectory Controller -------------------------------
+velocity_trajectory_controller:
+   type: velocity_controllers/JointTrajectoryController
+   joints:
+       - jaco2_joint_1
+       - jaco2_joint_2
+       - jaco2_joint_3
+       - jaco2_joint_4
+       - jaco2_joint_5
+       - jaco2_joint_6
+   constraints:
+       goal_time: 5.0  # Unusually high
+       #stopped_velocity_tolerance: 0.4 # Defaults to 0.01
+       jaco2_joint_1:
+           trajectory: 0.60
+           goal:       0.15
+       jaco2_joint_2:
+           trajectory: 0.60
+           goal:       0.15
+       jaco2_joint_3:
+           trajectory: 0.60
+           goal:       0.15
+       jaco2_joint_4:
+           trajectory: 0.60
+           goal:       0.15
+       jaco2_joint_5:
+           trajectory: 0.60
+           goal:       0.15
+       jaco2_joint_6:
+           trajectory: 0.60
+           goal:       0.15
+   gains:
+       jaco2_joint_1: {p: 4.0,  i: 0.0, d: 0.01, i_clamp: 1}
+       jaco2_joint_2: {p: 4.0,  i: 0.0, d: 0.01, i_clamp: 1}
+       jaco2_joint_3: {p: 4.0,  i: 0.0, d: 0.01, i_clamp: 1}
+       jaco2_joint_4: {p: 4.0,  i: 0.0, d: 0.01, i_clamp: 1}
+       jaco2_joint_5: {p: 4.0,  i: 0.0, d: 0.01, i_clamp: 1}
+       jaco2_joint_6: {p: 4.0,  i: 0.0, d: 0.01, i_clamp: 1}
+
+    # state_publish_rate:  50 # Defaults to 50
+    # action_monitor_rate: 20 # Defaults to 20
+    #hold_trajectory_duration: 0 # Defaults to 0.5
+
+# Joint Trajectory Controller for End Effector -------------------------------
+ee_velocity_trajectory_controller:
+   type: velocity_controllers/JointTrajectoryController
+   joints:
+       - jaco2_joint_finger_1
+       - jaco2_joint_finger_2
+       - jaco2_joint_finger_3
+   constraints:
+       goal_time: 5.0  # Unusually high
+       #stopped_velocity_tolerance: 0.4 # Defaults to 0.01
+       jaco2_joint_finger_1:
+           trajectory: 0.60
+           goal:       0.15
+       jaco2_joint_finger_2:
+           trajectory: 0.60
+           goal:       0.15
+       jaco2_joint_finger_3:
+           trajectory: 0.60
+           goal:       0.15
+   gains:
+       jaco2_joint_finger_1: {p: 6.0,  i: 0.0, d: 0.01, i_clamp: 1}
+       jaco2_joint_finger_2: {p: 6.0,  i: 0.0, d: 0.01, i_clamp: 1}
+       jaco2_joint_finger_3: {p: 6.0,  i: 0.0, d: 0.01, i_clamp: 1}
+
+    # state_publish_rate:  50 # Defaults to 50
+    # action_monitor_rate: 20 # Defaults to 20
+    #hold_trajectory_duration: 0 # Defaults to 0.5
+
+
+
+# Joint Trajectory Controller -------------------------------
+velocity_controller_1:
+   type: velocity_controllers/JointVelocityController
+   joint: jaco2_joint_1
+   pid: {p: 4.0,  i: 0.0, d: 0.01}
+velocity_controller_2:
+   type: velocity_controllers/JointVelocityController
+   joint: jaco2_joint_2
+   pid: {p: 4.0,  i: 0.0, d: 0.01}
+velocity_controller_3:
+   type: velocity_controllers/JointVelocityController
+   joint: jaco2_joint_3
+   pid: {p: 4.0,  i: 0.0, d: 0.01}
+velocity_controller_4:
+   type: velocity_controllers/JointVelocityController
+   joint: jaco2_joint_4
+   pid: {p: 4.0,  i: 0.0, d: 0.01}
+velocity_controller_5:
+   type: velocity_controllers/JointVelocityController
+   joint: jaco2_joint_5
+   pid: {p: 4.0,  i: 0.0, d: 0.01}
+velocity_controller_6:
+   type: velocity_controllers/JointVelocityController
+   joint: jaco2_joint_6
+   pid: {p: 4.0,  i: 0.0, d: 0.01}
+ee_velocity_controller_1:
+   type: velocity_controllers/JointVelocityController
+   joint: jaco2_joint_finger_1
+   pid: {p: 4.0,  i: 0.0, d: 0.01}
+ee_velocity_controller_2:
+   type: velocity_controllers/JointVelocityController
+   joint: jaco2_joint_finger_2
+   pid: {p: 4.0,  i: 0.0, d: 0.01}
+ee_velocity_controller_3:
+   type: velocity_controllers/JointVelocityController
+   joint: jaco2_joint_finger_3
+   pid: {p: 4.0,  i: 0.0, d: 0.01}

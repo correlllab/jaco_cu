@@ -1,0 +1,33 @@
+<launch>
+
+  <group ns="kinova">
+
+    <!-- GDB functionality -->
+    <arg name="debug" default="false" />
+    <arg unless="$(arg debug)" name="launch_prefix" value="" />
+    <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+
+    <!-- Load hardware interface -->
+    <node name="kinova_hw_interface" pkg="moveit_sim_controller" type="moveit_sim_hw_main"
+          output="screen" launch-prefix="$(arg launch_prefix)"/>
+
+    <!-- Load controller settings -->
+    <rosparam file="$(find kinova_control)/config/kinova_controllers_sim.yaml" command="load"/>
+
+    <!-- Load controller manager -->
+    <node name="controller_manager" pkg="controller_manager" type="controller_manager" respawn="false"
+	  output="screen" args="spawn 
+				joint_state_controller
+				position_trajectory_controller
+				ee_position_trajectory_controller
+				" />
+
+    <!-- Convert joint states to /tf tranforms -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+      <remap from="joint_states" to="/kinova/kinova/joint_states"/>
+    </node>
+
+  </group>
+
+</launch>
+

@@ -1,0 +1,41 @@
+<launch>
+
+  <!-- GDB functionality -->
+  <arg name="debug" default="false" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+  <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+
+  <!-- Load the URDF, SRDF and other .yaml configuration files on the param server -->
+  <include file="$(find kinova_moveit_config)/launch/planning_context.launch">
+    <arg name="load_robot_description" value="true"/>
+  </include>
+
+  <!-- Transform robot to location near shelf -->
+  <!-- <include file="$(find kinova_control)/launch/kinova_transform.launch"/> -->
+
+  <group ns="kinova">
+
+    <!-- Arm Controller -->
+    <include file="$(find kinova_control)/launch/jaco_control_sim.launch"/>
+
+    <!-- Convert joint states to /tf tranforms -->
+    <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"> -->
+    <!--   <remap from="joint_states" to="/kinova/joint_states"/> -->
+    <!-- </node> -->
+
+    <!-- Load controller manager -->
+    <node name="jaco_controller_manager" pkg="controller_manager" type="controller_manager" respawn="false"
+    	  output="screen" args="spawn
+    				kinova_hw_interface/joint_state_controller
+    				kinova_hw_interface/position_trajectory_controller
+    				kinova_hw_interface/ee_pos_traj_controller
+    				" />
+<!--
+
+
+				zaber_hw_interface/joint_state_controller
+-->
+
+  </group>
+
+</launch>

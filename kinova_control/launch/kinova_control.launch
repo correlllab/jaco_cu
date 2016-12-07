@@ -1,0 +1,36 @@
+<launch>
+
+  <!-- GDB functionality -->
+  <arg name="debug" default="false" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+  <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+
+  <group ns="kinova">
+
+    <!-- Load hardware interface -->
+    <node name="kinova_hw_interface" pkg="kinova_control" type="kinova_hw_main"
+          output="screen" launch-prefix="$(arg launch_prefix)"/>
+
+    <!-- Load controller settings -->
+    <rosparam file="$(find kinova_control)/config/kinova_controllers.yaml" command="load"/>
+
+    <!-- Load controller manager -->
+    <node name="controller_manager" pkg="controller_manager" type="controller_manager" respawn="false"
+	  output="screen" args="spawn 
+				joint_state_controller
+				velocity_trajectory_controller
+				ee_velocity_trajectory_controller
+				" />
+
+    <!-- Convert joint states to /tf tranforms -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+      <remap from="joint_states" to="/kinova/kinova/joint_states"/>
+    </node>
+
+    <!-- Manual control of jaco using joystick node -->
+    <node name="kinova_manual_control" pkg="kinova_control" type="kinova_manual_control" output="screen"
+	  launch-prefix="$(arg launch_prefix)"/>
+
+  </group>
+
+</launch>

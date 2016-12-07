@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package>
+  <name>kinova_control</name>
+  <version>0.0.1</version>
+  <description>The kinova_control package</description>
+
+  <maintainer email="davetcoleman@gmail.com">Dave Coleman</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">https://github.com/davetcoleman/kinova_control</url>
+  <url type="butracker">https://github.com/davetcoleman/kinova_control/issues</url>
+  <url type="repository">https://github.com/davetcoleman/kinova_control/</url>
+
+  <author email="davetcoleman@gmail.com">Dave Coleman</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>ros_control_boilerplate</build_depend>
+  <build_depend>controller_manager</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>kinova_driver</build_depend>
+  <build_depend>control_msgs</build_depend>
+
+  <run_depend>ros_control_boilerplate</run_depend>
+  <run_depend>controller_manager</run_depend>
+  <run_depend>ros_controllers</run_depend>
+  <run_depend>kinova_driver</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>control_msgs</run_depend>
+
+  <export>
+  </export>
+</package>
