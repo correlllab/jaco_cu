@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(kinova_control)
 
+# C++ 11
+add_compile_options(-std=c++11)
+
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
   ros_control_boilerplate
@@ -13,7 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES kinova_hw_interface
-  CATKIN_DEPENDS 
+  CATKIN_DEPENDS
     ros_control_boilerplate
     controller_manager
     roscpp

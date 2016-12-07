@@ -33,7 +33,7 @@
  *********************************************************************/
 
 /* Author: Dave Coleman <dave@dav.ee>
-   Desc:   
+   Desc:
 */
 
 #ifndef KINOVA_HW_INTERFACE_HPP
@@ -59,10 +59,10 @@ public:
   KinovaHWInterface(ros::NodeHandle& nh, kinova::JacoComm& jaco_comm);
 
   /// \brief Read the state from the robot hardware.
-  void read(ros::Duration elapsed_time);
+  void read(ros::Duration &elapsed_time);
 
   /// \brief write the command to the robot hardware.
-  void write(ros::Duration elapsed_time);
+  void write(ros::Duration &elapsed_time);
 
   /**
    * Converts angles from DH convention to JACO's physical angles.
@@ -93,7 +93,7 @@ public:
 
   /**
    * Added by TC 3/19/15
-   * Returns unwrapped angle 
+   * Returns unwrapped angle
    *
    * @param newx: current angle
    * @param oldx: old angle
@@ -141,6 +141,12 @@ public:
    * @return TRUE if the distance is less than tolerance
    */
   bool areValuesClose(double first, double second, double tolerance);
+
+  /** \breif Enforce limits for all values before writing */
+  void enforceLimits(ros::Duration &period)
+  {
+    // TODO: implement this safety feature
+  }
 
 private:
 

@@ -33,7 +33,7 @@
  *********************************************************************/
 
 /* Author: Dave Coleman <dave@dav.ee>
-   Desc:   
+   Desc:
 */
 
 #include <kinova_control/kinova_hw_interface.h>
@@ -88,11 +88,11 @@ KinovaHWInterface::KinovaHWInterface(ros::NodeHandle& nh,
   const static double FULLY_CLOSED = 6600;
   const static double FULLY_CLOSED_URDF = M_PI/180*40; //0.697;
   encoder_to_radian_ratio_ = FULLY_CLOSED_URDF / FULLY_CLOSED;
-  radian_to_encoder_ratio_ = FULLY_CLOSED / FULLY_CLOSED_URDF;  
+  radian_to_encoder_ratio_ = FULLY_CLOSED / FULLY_CLOSED_URDF;
   ROS_DEBUG_STREAM_NAMED("kinova_hw_interface","radian_to_encoder_ratio: " << radian_to_encoder_ratio_);
 }
 
-void KinovaHWInterface::read(ros::Duration elapsed_time)
+void KinovaHWInterface::read(ros::Duration &elapsed_time)
 {
   kinova::FingerAngles fingers;
   jaco_comm_.getFingerPositions(fingers);
@@ -139,7 +139,7 @@ void KinovaHWInterface::read(ros::Duration elapsed_time)
 
   // ROS_DEBUG_THROTTLE_NAMED(0.1, "raw_positions",
   //                          "%f %f %f %f %f %f %f %f %f",
-  //                          joint_position_[0], joint_position_[1], joint_position_[2], joint_position_[3], joint_position_[4], 
+  //                          joint_position_[0], joint_position_[1], joint_position_[2], joint_position_[3], joint_position_[4],
   //                          joint_position_[5], joint_position_[6], joint_position_[7], joint_position_[8]);
 
   // Joint velocities
@@ -161,7 +161,7 @@ void KinovaHWInterface::read(ros::Duration elapsed_time)
   if (false)
   ROS_DEBUG_THROTTLE_NAMED(0.1, "raw_velocities",
                            "%f %f %f %f %f %f %f %f %f",
-                           joint_velocity_[0], joint_velocity_[1], joint_velocity_[2], joint_velocity_[3], joint_velocity_[4], 
+                           joint_velocity_[0], joint_velocity_[1], joint_velocity_[2], joint_velocity_[3], joint_velocity_[4],
                            joint_velocity_[5], joint_velocity_[6], joint_velocity_[7], joint_velocity_[8]);
 
   if (convert_joint_velocities_) {
@@ -221,7 +221,7 @@ void KinovaHWInterface::read(ros::Duration elapsed_time)
 
 }
 
-void KinovaHWInterface::write(ros::Duration elapsed_time)
+void KinovaHWInterface::write(ros::Duration &elapsed_time)
 {
   if (false)
   ROS_DEBUG_THROTTLE_NAMED(0.1, "commanded_velocity",
@@ -289,9 +289,9 @@ void KinovaHWInterface::write(ros::Duration elapsed_time)
   point.Position.Fingers.Finger1 = joint_velocity_command_[6] * radian_to_encoder_ratio_; //(180 / M_PI);
   point.Position.Fingers.Finger2 = joint_velocity_command_[7] * radian_to_encoder_ratio_; //(180 / M_PI);
   point.Position.Fingers.Finger3 = joint_velocity_command_[8] * radian_to_encoder_ratio_; //(180 / M_PI);
-  
 
-  if (false)  
+
+  if (false)
   ROS_DEBUG_THROTTLE_NAMED(0.1, "commanded_velocity",
                            "%f %f %f %f %f %f %f %f %f",
                            joint_velocity_command_[0],
