@@ -28,6 +28,7 @@
   <run_depend>kinova_driver</run_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>control_msgs</run_depend>
+  <run_depend>moveit_sim_controller</run_depend>
 
   <export>
   </export>

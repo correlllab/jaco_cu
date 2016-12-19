@@ -52,7 +52,7 @@ public:
    * \brief Constructor
    */
   KinovaManualControl()
-    : ros_control_boilerplate::JoystickManualControl("kinova_manual_control", "/jacob/kinova")
+    : ros_control_boilerplate::JoystickManualControl("kinova_manual_control", "/jaco/kinova")
   {
     // Trajectory controllers
     trajectory_controllers_.push_back("velocity_trajectory_controller");
